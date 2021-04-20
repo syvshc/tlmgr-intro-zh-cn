@@ -165,7 +165,7 @@
     \item \op{-no-dependent}\par
     如果用户升级一个软件包, 正常情况下所有依赖的软件包在必要的情况下都会被升级. 这个选项会抑致这个行为. 
     \item \hypertarget{op:-reinstall-forcibly-removed}{\op{-reinstall-forcibly-removed}}\par
-    在通常情况下 \tlmgr 不会自动安装那些被用户强制删除的软件包, 比如被 \ac{remove} \op{-force} 删除, 或者在之前的升级中被选项 \op{-no-auto-install} 禁止安装的软件包. 
+    在通常情况下 \tlmgr 不会自动安装那些被用户强制删除的软件包, 比如被 \ac{remove} \op{-force} 删除, 在之前的升级中被选项 \op{-no-auto-install} 禁止安装, 或者在升级操作中意外终止时正在升级的软件包. 
     \item \op{-no-auto-remove} \oarg{pkgs}\par
     默认状态下, \tlmgr 将会尝试删除存在于集合中但是在服务器中已经被删除的软件包. 这个选项会阻止这些删除操作, 如果同时指定 \op{-all} 则范围为全部软件包, 如果指定 \oarg{pkgs}, 则范围为给定的软件包. 这可能导致 \TeX 安装的不一致, 因为软件包的作者可能重命名软件包或者改变软件包的位置, 所以这个选项不推荐使用\footnote{This can lead to an inconsistent TeX installation, since packages are not infrequently renamed or replaced by their authors. Therefore this is not recommended.}.
     \item \op{-no-auto-install} \oarg{pkgs}\par
@@ -252,7 +252,15 @@
     \item \op{-no-depends}\par
     不移除从属软件包.
     \item \op{-all}\par
-    卸载整个 \tl, 会询问用户是否删除, 除非指定了 \op{-force} 选项. 
+    卸载整个 \tl, 会询问用户是否删除, 除非指定了 \op{-force} 选项. 该命令可以在 Linux 下正常工作. 在 Windows 下, \tlmgr{} \ac{remove} \op{-all} 会返回
+    \begin{quote}
+        \ttfamily Please use "Add/Remove Programs" from the Control Panel to removing TeX Live!
+    \end{quote}
+    如果在 Windows 下卸载 \tl. 可以在命令行中运行
+    \begin{quote}
+        \texttt kpsewhich -var-value TEXMFROOT
+    \end{quote}
+    查看 \verb|$TEXMFROOT| 的路径, 然后运行 \verb|$TEXMFROOT\tlpkg\installer\uninst.bat| 来进行卸载. 
     \item \op{-force}\par
     默认状态下, 移除一个软件包或者一个集合的从属集合是不允许的. 使用这个选项可以无条件地轶软件包, 要谨慎使用. 
 
