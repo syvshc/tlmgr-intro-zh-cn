@@ -13,17 +13,17 @@
     \tlmgr{} \ac{info} \oarg{\upshape collections|schemes|\textit{pkgs}}.
 \end{quote}
 
-如果不带参数, 将会列出所有软件包仓库中的软件包, 把哪些已经被安装的软件包加上前缀 \texttt{i}.
+如果不带参数, 将会列出软件包仓库中的所有软件包, 把那些已经被安装的软件包加上前缀 \texttt{i}.
 
 如果带参数 \texttt{collections} 或 \texttt{schemes}, 将会列出全部的集合或安装方案, 而不列出软件包, 同样地, 把已经安装的集合或安装方案加上前缀 \texttt{i}. 
 
-如果带了任意其他的参数, 将会依次列出 \marg{pkgs} 中的每一个软件包的信息: 名称 (name), 分类 (category), 简短和详细的介绍 (short and long description), 软件包大小 (size), 安装状态 (status), 以及 \tl 中的版本号. 如果这个软件包没有在本地安装, 那么 \tlmgr 将会在远端仓库去查找它. 
+如果带了任意其他的参数, 将会依次列出 \marg{pkgs} 中的每一个软件包的信息: 名称 (name), 分类 (category), 简短和详细的介绍 (short and long description), 软件包大小 (size), 安装状态 (installation status), 以及 \tl 中的版本号. 如果这个软件包没有在本地安装, 那么 \tlmgr 将会在远端仓库去查找它. 
 
 对于普通的软件包 (除了集合与安装方案), 软件包大小是分 4 个部分显示的 (run/src/doc/bin). 对于集合, 显示的是所有直接\textbf{从属} (dependent) 于它的软件包的大小总和, 但是不包括从属的集合. 对于安装方案, 显示的是所有直接从属于它的集合与软件包的大小总和. 
 
 如果在本地与线上都没有完整的匹配结果, 那么 \tlmgr 将会使用 \ac{search} 操作寻找名称与它相关的软件包, 见 \nameref{subsec:search} 小节. 
 
-\ac{info} 操作也会显示从 \TeX\,Catalogue 获取的信息: 软件包版本 (package revision), 日期 (date), 以及许可证 (license). 不过这些信息, 尤其是软件包版本, 获得的信息只能用做参考, 这是由于不同部分的更新有时间差. 
+\ac{info} 操作也会显示从 \TeX\,Catalogue 获取的信息: 软件包版本 (package version), 日期 (date), 以及许可证 (license). 不过这些信息, 尤其是软件包版本, 获得的信息只能用做参考, 这是由于不同部分的更新有时间差. 
 
 旧操作 \ac{show} 与 \ac{list} 已经被合并到了 \ac{info} 操作中, 但是为了兼容性这两个操作仍然可用. 
 
@@ -77,22 +77,22 @@
 \subsection{\mdseries\ac{install}}
 \paragraph{使用方法:}
 \begin{quote}
-    \tlmgr{} \ac{install} \marg{pkgs}.
+    \tlmgr{} \ac{install} \marg{pkgs}
 \end{quote}
 
-安装 \marg{pkgs} 中的每一个软件包, 除非某软件包已经被安装过了. 默认状态下所有指定的的软件包的从属文件也会被同时安装. \ac{install} 操作不会更改已经安装的软件包, 如果想使用最新版本的软件包, 可以使用 \nameref{subsec:update} 小节介绍的 \ac{update} 操作. 
+安装 \marg{pkgs} 中的每一个软件包, 除非某软件包已经被安装过了. 默认状态下所有指定的软件包的从属文件也会被同时安装. \ac{install} 操作不会更改已经安装的软件包, 如果想使用最新版本的软件包, 可以使用 \nameref{subsec:update} 小节介绍的 \ac{update} 操作. 
 
 \paragraph{{\mdseries\ac{install}} 的特有选项:}
 \begin{description}
     \item \op{-dry-run}\par
     在终端显示将要执行的操作, 而不进行安装. 
     \item \op{-reinstall}\par
-    重新安装一个软件包 (包括对集合的依赖), 即使它看起来已经安装了, 比如它已经存在于 TLPDB (\tl{} Package Database) 中. 这个选项对于恢复在层级中不小心删除的软件包很有用. 
+    重新安装一个软件包 (包括对集合的依赖), 即使它看起来已经安装了, 即它已经存在于 TLPDB (\tl{} Package Database) 中. 这个选项对于恢复在层级中不小心删除的软件包很有用. 
 
     重新安装时，只遵循对普通包的依赖 (不遵循类别Scheme或Collection的依赖)%
     \footnote{When re-installing, only dependencies on normal packages are followed (i.e., not those of category Scheme or Collection).}. 
     \item \op{-with-doc}, \op{-with-src}\par
-    \texttt{install-tl} 给了一个 ``不安装文档/源文件'' 的选项, 但是我们不推荐使用这个选项. (默认状态下会安装所有的文件). 如果用了这个选项, 那么当用户想获得软件包的文档或者源文件的时候, 可以使用这两个选项与 \op{--reinstall}, 用 \texttt{fontspec} 宏包为例: 
+    \texttt{install-tl} 给了一个 ``不安装文档/源文件'' 的选项, 但是我们不推荐使用这个选项. (默认状态下会安装所有的文件.) 如果用了这个选项, 那么当用户想获得软件包的文档或者源文件的时候, 可以使用这两个选项与 \op{--reinstall}, 以 \texttt{fontspec} 宏包为例: 
     \begin{quote}
         \tlmgr{} \ac{install} \op{-reinstall} \op{-with-doc} \op{-with-src} \texttt{fontspec}
     \end{quote}
@@ -118,13 +118,13 @@
 \paragraph{{\mdseries\ac{update}} 的特有选项:}
 \begin{description}
     \item \op{-all}\par
-    升级全部的软件包 (除了 \tlmgr{} 本身). 如果把 \tlmgr 也列出安装范围将会报错, 除非同时指定了 \op{-force} 与 \op{-self} 选项. (见下)
+    升级全部已安装的软件包 (除了 \tlmgr{} 本身). 如果把 \tlmgr 也列在安装范围之中将会报错, 除非同时指定了 \op{-force} 或者 \op{-self} 选项. (见下)
     
     除了对已安装的软件包进行升级之外, 对本地安装的集合的升级 (默认是) 将它与服务器上的集合进行同步, 无论是新增还是移除. 
 
     类似地, 如果服务器上的一个本地已经安装的集合新增了一个软件包, 那么它将会被加入本地安装, 这被称作 ``auto-install'', 同时会在使用选项 \op{-list} 的时候被显示. 
 
-    在集合从属软件包的检查中, 如果有一些被用户强制删除 (forcibly removed), 也就是用户使用对它们使用了 \tlmgr{} \ac{remove} \op{-force} 命令 (见 \nameref{subsec:remove} 小节). 如果想重新安装任何一个被强制删除的软件包, 要使用 \hyperlink{op:-reinstall-forcibly-removed}{\op{-reinstall-forcibly-removed}} 选项. 
+    在集合从属软件包的检查中, 如果有一些被用户强制删除 (forcibly removed), 也就是用户对它们使用了 \tlmgr{} \ac{remove} \op{-force} 命令 (见 \nameref{subsec:remove} 小节). 如果想重新安装任何一个被强制删除的软件包, 要使用 \hyperlink{op:-reinstall-forcibly-removed}{\op{-reinstall-forcibly-removed}} 选项. 
 
     重申一遍: 自动新增与移除是完全通过集合之间的比较完成的. 因此, 如果用户手动安装了一个稍后将被服务器移除的软件包, \tlmgr{} 不会注意到它, 也不会在本地移除它. (尽量不要主动进行架构重组，因为 TLPDB 不记录软件包的来源仓库\footnote{It has to be this way, without major rearchitecture work, because the tlpdb does not record the repository from which packages come from.})
 
@@ -132,7 +132,7 @@
     \item \op{-self}\par
     如果有更新的 \tlmgr 版本存在, 那么升级 \tlmgr{} 本身, 即 \tlmgr 的基础架构. 在 Windows 设备上这个选项也会升级 \tl 自带的 Perl 解释器. 
 
-    如果这个选项与 \op{-all} 一起被指定, 那么 \tlmgr 将会先升级自身, 如果成功了, \tlmgr 将会自动重启并执行接下来的升级. 
+    如果这个选项与 \op{-all} 或者宏包名列表一起被指定, 那么 \tlmgr 将会先升级自身, 如果成功了, \tlmgr 将会自动重启并执行接下来的升级. 
 
     表 \ref{tab:update} 展示了 \ac{update} 中 \op{-self} 与 \op{-all} 的关系. 
     \begin{table}
@@ -151,11 +151,11 @@
     \item \op{-list} \oarg{pkgs}\par
     简略地列出即将被更新, 新增或移除的软件包, 但不做实质的更改. 如果同时指定了 \op{-all}, 那么将列出所有可用的更新. 如果同时指定了 \op{-self} 但是不指定 \op{-all}, 那么只会列出可更新的核心软件包 (\tlmgr, \tl 的核心架构, Windows 上的 Perl 等等). 
 
-    如果不指定 \op{-all} 或 \op{-self}, 但是给出了具体的软件包 \oarg{pkgs}, 那么将检查 \oarg{pkgs} 中的可更新软件包并列出. 
+    如果不指定 \op{-all} 和 \op{-self}, 但是给出了具体的软件包 \oarg{pkgs}, 那么将检查 \oarg{pkgs} 中的可更新软件包并列出. 
 
-    如果不指定 \op{-all} 或 \op{-self}, 同时也没有给出 \oarg{pkg}, 那么 \tlmgr 就会假定使用了 \op{-all}, 也就是说 \tlmgr{} \ac{update} \op{-\op{list}} 与 \tlmgr{} \ac{update} \op{-list} \op{-all} 是一样的. 
+    如果不指定 \op{-all} 和 \op{-self}, 同时也没有给出 \oarg{pkg}, 那么 \tlmgr 就会假定使用了 \op{-all}, 也就是说 \tlmgr{} \ac{update} \op{-\op{list}} 与 \tlmgr{} \ac{update} \op{-list} \op{-all} 是一样的. 
     \item \hypertarget{op:exclude}{\op{-exclude} \marg{pkg}} \par
-    在更新程序中排除软件包 \marg{pkg} 本身以及所有平台特定的软件包, 比如
+    在更新程序中排除软件包 \marg{pkg} 本身以及所有平台特定的相关软件包, 比如
     \begin{quote}
         \tlmgr{} \ac{update} \op{-all} \op{-exclude} \texttt{a2ping} 
     \end{quote}
@@ -163,7 +163,7 @@
 
     如果这个选项指定了一个宏包, 程序将会在以下情况报错并退出: \marg{pkg} 将被自动安装, \marg{pkg} 将被自动移除, 或者 \marg{pkg} 是被手动删除并需要被重新安装\footnote{reinstallation of a forcibly removed package.}的时候. \op{-exclude} 选项不支持这些情况. 
     \item \op{-no-dependent}\par
-    如果用户升级一个软件包, 正常情况下所有依赖的软件包在必要的情况下都会被升级. 这个选项会抑致这个行为. 
+    如果用户升级一个软件包, 正常情况下所有依赖的软件包在必要的情况下都会被升级. 这个选项会抑制这个行为. 
     \item \hypertarget{op:-reinstall-forcibly-removed}{\op{-reinstall-forcibly-removed}}\par
     在通常情况下 \tlmgr 不会自动安装那些被用户强制删除的软件包, 比如被 \ac{remove} \op{-force} 删除, 在之前的升级中被选项 \op{-no-auto-install} 禁止安装, 或者在升级操作中意外终止时正在升级的软件包. 
     \item \op{-no-auto-remove} \oarg{pkgs}\par
@@ -184,7 +184,7 @@
     \item \hypertarget{op:backup}{\op{-backup}, \op{-backupdir} \marg{dir}}\par
     这两个选项会在\textbf{升级之前}创建软件包的备份, 也就是说会备份升级之前最新的软件包, 如果不指定这两个选项, 那么将不会创建备份. 如果指定了 \op{-backupdir} 同时 \marg{dir} 是一个可写且有足够空间的路径, 那么 \tlmgr 将会在这个路径下创建备份文件. 如果仅指定了 \op{-backup}, 那么备份将会被创建在 \nameref{subsec:option} 小节中设置的位置, 默认在 \tl 根目录下的 \texttt{texlive/<year>/tlpkg/backups} 中.  
 
-    \textbf{注}: \href{https://www.tug.org/texlive/doc/tlmgr.html#update-option...-pkg}{tlmgr 文档} 原文为: If neither option is given, no backup will made. 但是 \tlmgr 在 \tl{}2010 以后将自动备份关键词 \key{autobackup} 默认设置为 1, 也就是说, 即使不使用 \op{-backup} 选项, 也会自动将软件包备份在默认位置, 方便用户使用 \nameref{subsec:restore} 操作回滚. 更新日志见 \href{https://www.tug.org/texlive/doc/texlive-en/texlive-en.html#x1-780009.1.7}{texlive-en}
+    \textbf{注}: \href{https://www.tug.org/texlive/doc/tlmgr.html#update-option...-pkg}{tlmgr 文档} 原文为: If neither option is given, no backup will made. 但是 \tlmgr 在 \tl{}2010 以后将自动备份关键词 \key{autobackup} 默认设置为 1, 也就是说, 即使不使用 \op{-backup} 选项, 也会自动将软件包备份在默认位置, 方便用户使用 \nameref{subsec:restore} 操作回滚. 更新日志见 \href{https://www.tug.org/texlive/doc/texlive-en/texlive-en.html#x1-780009.1.7}{texlive-en}.
 
     \item \op{-force}\par
     强制升级所有软件包, 不包括 \tlmgr 本身, 除非同时指定了 \op{-self} 选项. 不推荐. 
